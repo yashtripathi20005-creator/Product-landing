@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ product.name }} - {{ product.tagline }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <span class="brand-icon">🚀</span>
+                <span class="brand-name">{{ product.name }}</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#features">Features</a></li>
+                <li><a href="#testimonials">Testimonials</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="#cta" class="btn btn-primary">Get Started</a></li>
+            </ul>
+            <button class="mobile-menu-toggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1 class="hero-title">{{ product.tagline }}</h1>
+                    <p class="hero-description">{{ product.description }}</p>
+                    <div class="hero-actions">
+                        <a href="#cta" class="btn btn-primary btn-large">Try Now</a>
+                        <a href="#features" class="btn btn-secondary btn-large">Learn More</a>
+                    </div>
+                    <div class="hero-stats">
+                        <div class="stat">
+                            <span class="stat-number">10K+</span>
+                            <span class="stat-label">Happy Users</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">4.9</span>
+                            <span class="stat-label">⭐ Rating</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">99.9%</span>
+                            <span class="stat-label">Uptime</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <img src="{{ product.image }}" alt="{{ product.name }}" loading="lazy">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <h2 class="section-title">Why Choose {{ product.name }}?</h2>
+            <p class="section-subtitle">Everything you need to supercharge your productivity</p>
+            <div class="features-grid">
+                {% for feature in product.features %}
+                <div class="feature-card">
+                    <div class="feature-icon">{{ feature.split(' ')[0] }}</div>
+                    <h3 class="feature-title">{{ feature.split(' ', 1)[1] }}</h3>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="testimonials">
+        <div class="container">
+            <h2 class="section-title">What Our Users Say</h2>
+            <p class="section-subtitle">Real stories from real customers</p>
+            <div class="testimonials-grid">
+                {% for testimonial in testimonials %}
+                <div class="testimonial-card">
+                    <div class="testimonial-rating">
+                        {% for _ in range(testimonial.rating) %}
+                        <span>⭐</span>
+                        {% endfor %}
+                    </div>
+                    <p class="testimonial-content">"{{ testimonial.content }}"</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            {{ testimonial.name[0] }}
+                        </div>
+                        <div>
+                            <p class="author-name">{{ testimonial.name }}</p>
+                            <p class="author-role">{{ testimonial.role }}</p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section id="cta" class="cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2 class="cta-title">Ready to Get Started?</h2>
+                <p class="cta-description">Join thousands of satisfied customers. Start your free trial today!</p>
+                <form id="subscribe-form" class="cta-form">
+                    <div class="form-group">
+                        <input type="email" id="email-input" placeholder="Enter your email" required>
+                        <button type="submit" class="btn btn-primary">Subscribe Now</button>
+                    </div>
+                    <div id="subscribe-message" class="form-message"></div>
+                </form>
+                <p class="cta-note">⚡ No credit card required. Free 14-day trial.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title">Get in Touch</h2>
+            <p class="section-subtitle">We'd love to hear from you</p>
+            <form id="contact-form" class="contact-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="contact-name">Name</label>
+                        <input type="text" id="contact-name" placeholder="Your name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="contact-email">Email</label>
+                        <input type="email" id="contact-email" placeholder="Your email" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="contact-message">Message</label>
+                    <textarea id="contact-message" rows="5" placeholder="Your message" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Send Message</button>
+                <div id="contact-message-status" class="form-message"></div>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <span class="brand-icon">🚀</span>
+                    <span class="brand-name">{{ product.name }}</span>
+                    <p>Making productivity simple.</p>
+                </div>
+                <div class="footer-links">
+                    <div>
+                        <h4>Product</h4>
+                        <a href="#features">Features</a>
+                        <a href="#">Pricing</a>
+                        <a href="#">FAQ</a>
+                    </div>
+                    <div>
+                        <h4>Company</h4>
+                        <a href="#">About</a>
+                        <a href="#">Blog</a>
+                        <a href="#">Careers</a>
+                    </div>
+                    <div>
+                        <h4>Legal</h4>
+                        <a href="#">Privacy</a>
+                        <a href="#">Terms</a>
+                        <a href="#">Security</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; {{ year }} {{ product.name }}. All rights reserved.</p>
+                <div class="social-links">
+                    <a href="#" aria-label="Twitter">🐦</a>
+                    <a href="#" aria-label="LinkedIn">💼</a>
+                    <a href="#" aria-label="GitHub">🐙</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
